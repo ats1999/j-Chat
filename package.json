@@ -1,0 +1,31 @@
+{
+  "name": "j-chat",
+  "version": "1.0.0",
+  "description": "This is a JavaScript real time chat application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node ./index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ats1999/j-Chat.git"
+  },
+  "keywords": [
+    "Chat",
+    "Node",
+    "React",
+    "Next",
+    "JavaScript"
+  ],
+  "author": "Rahul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ats1999/j-Chat/issues"
+  },
+  "homepage": "https://github.com/Ats1999/j-Chat#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
