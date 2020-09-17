@@ -1,0 +1,10 @@
+.active__users{
+    height: 100vh;
+    width: 25vw;
+    padding: 5px;
+    background-color: rgb(227, 255, 234)
+}
+
+.active__users > .user{
+    display: flex;
+}

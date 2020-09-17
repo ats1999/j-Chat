@@ -1,19 +1,19 @@
 import React from 'react';
-import SideBar from './components/layout/SideBar';
-import Header from './components/layout/Header';
+import Home from "./components/layout/Home";
+// aPp
+import Chat from "./components/app/Chat";
+
+import { BrowserRouter as Router,Route } from 'react-router-dom';
 
 import "./App.css";
 
 function App() {
-  return (
-    <div className="">
-      <Header/>
-      <div className="app__body">
-        <SideBar/>
-        {/* Chat app */}
-      </div>
-    </div>
-  );
+  return <>
+    <Router>
+      <Route path="/" exact component={Home}/>
+      <Route path="/chat" exact component={Chat}/>
+    </Router>
+  </>
 }
 
 export default App;
