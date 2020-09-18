@@ -9,6 +9,8 @@ import { BrowserRouter as Router,Route } from 'react-router-dom';
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import Forgot from "./components/auth/Forgot";
+
+import JoinChatGruoup from "./components/app/chat/JoinChatGruoup";
 import "./App.css";
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
       <Route path="/login" exact component={Login}/>
       <Route path="/signup" exact component={SignUp}/>
       <Route path="/forgot" exact component={Forgot}/>
+      <Route path="/join" component={JoinChatGruoup}/>
     </Router>
   </>
 }

@@ -11,12 +11,15 @@
     background-color: transparent;
 }
 #chat-area:hover{
-    border: 1px solid green;
+    border: 1px solid red;
 }
 .chat_room>button{
     background-color: greenyellow;
+    width: 100px;
 }
 .chat_room{
-    margin-bottom: 5px;
+    width: 48vw;
+    position: fixed;
+    bottom: 0%;
     display: flex;
 }

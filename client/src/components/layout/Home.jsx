@@ -87,11 +87,11 @@ function Home(props) {
   const drawer = (
     <div>
       {/* Model that will allows users to choose options */}
-      <Model name="Rahul" opne={open} handleClose={handleClose}/>
+      {/* <Model name="Rahul" opne={open} handleClose={handleClose}/> */}
       <Divider />
       <Search/>
       <List> 
-      <ListItem button onClick={handleOpen}>
+      <ListItem button component={Link} to="/join" >
           <ListItemIcon><ExploreIcon color="primary"/></ListItemIcon>
           <ListItemText primary="ChatRooms" />
       </ListItem>
