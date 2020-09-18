@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,9 +24,12 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import InfoIcon from '@material-ui/icons/Info';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
+import ExploreIcon from '@material-ui/icons/Explore';
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
+import Search from "../util/Search";
+import Model from "../util/Model";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -66,22 +70,40 @@ function Home(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+    
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const drawer = (
     <div>
+      {/* Model that will allows users to choose options */}
+      <Model name="Rahul" opne={open} handleClose={handleClose}/>
       <Divider />
-      <List>
+      <Search/>
+      <List> 
+      <ListItem button onClick={handleOpen}>
+          <ListItemIcon><ExploreIcon color="primary"/></ListItemIcon>
+          <ListItemText primary="ChatRooms" />
+      </ListItem>
+
           {
-             [{text:"Login",icon:<LockIcon color="primary" />},
-                {text:"SignUp",icon:<PersonAddIcon color="primary" />},
-                {text:"AboutUs",icon:<InfoIcon color="secondary" />},
-                {text:"Github Repo",icon:<GitHubIcon />},
-                {text:"Bug report",icon:<BugReportIcon color="error" />}].map((item,index)=>{
-                   return <ListItem button key={index}>
+             [
+             {text:"Login",icon:<LockIcon color="primary" />,url:"/login"},
+                {text:"SignUp",icon:<PersonAddIcon color="primary"/>, url:"/signup"},
+                {text:"AboutUs",icon:<InfoIcon color="secondary" />,url:"#About Us is not developed!"},
+                {text:"Github Repo",icon:<GitHubIcon />,url:"https://github.com/Ats1999/j-Chat"},
+                {text:"Bug report",icon:<BugReportIcon color="error" />,url:"https://github.com/Ats1999/j-Chat/issues"}].map((item,index)=>{
+                   return <ListItem button component={Link} to={`${item.url}`} key={index}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                     </ListItem>

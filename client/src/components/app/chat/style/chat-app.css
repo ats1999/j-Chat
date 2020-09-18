@@ -1,0 +1,22 @@
+.chat__app{
+    height: 100vh;
+    width: 50vw;
+    padding: 5px;
+    background-color: rgb(255, 246, 218);
+}
+#chat-area{
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    background-color: transparent;
+}
+#chat-area:hover{
+    border: 1px solid green;
+}
+.chat_room>button{
+    background-color: greenyellow;
+}
+.chat_room{
+    margin-bottom: 5px;
+    display: flex;
+}

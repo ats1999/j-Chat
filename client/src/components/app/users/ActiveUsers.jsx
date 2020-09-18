@@ -7,57 +7,23 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import BlockIcon from '@material-ui/icons/Block';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FlagIcon from '@material-ui/icons/Flag';
+import Users from "./Users";
+
 function ActiveUsers() {
     let src = "https://live.staticflickr.com/2545/4052988513_d1f9106edd.jpg";  
     let userName = "Rahul!";
-
+    let users = [{imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
+    {imageSrc:src,userName:userName,userStatus:"There  is no status"}]
     return (
         <div className="active__users">
             <h1>Active users</h1>
-            <div className="user">
-                <UserAvatar imageSrc={src} userName={userName}/>
-                <div className="user__info">
-                    <p>{userName}</p>
-                    <BlockIcon color="error"/>
-                    <FavoriteIcon color="primary" />
-                    <AccessTimeIcon color="disabled" />
-                    <FlagIcon color="action"/>
-                </div>
-            </div>
-
-            <div className="user">
-                <UserAvatar imageSrc={src} userName={userName}/>
-                <div className="user__info">
-                    <p>{userName}</p>
-                    <BlockIcon color="error"/>
-                    <FavoriteIcon color="primary" />
-                    <AccessTimeIcon color="disabled" />
-                    <FlagIcon color="action"/>
-                </div>
-            </div>
-
-            <div className="user">
-                <UserAvatar imageSrc={src} userName={userName}/>
-                <div className="user__info">
-                    <p>{userName}</p>
-                    <BlockIcon color="error"/>
-                    <FavoriteIcon color="primary" />
-                    <AccessTimeIcon color="disabled" />
-                    <FlagIcon color="action"/>
-                </div>
-            </div>
-
-
-            <div className="user">
-                <UserAvatar imageSrc={src} userName={userName}/>
-                <div className="user__info">
-                    <p>{userName}</p>
-                    <BlockIcon color="error"/>
-                    <FavoriteIcon color="primary" />
-                    <AccessTimeIcon color="disabled" />
-                    <FlagIcon color="action"/>
-                </div>
-            </div>
+            <Users users={users}/>
         </div>
     )
 }

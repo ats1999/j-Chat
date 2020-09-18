@@ -1,7 +1,7 @@
 import React from 'react'
-import ActiveUsers from "./ActiveUsers";
-import ChatApp from "./ChatApp";
-import Dahsboard from "./Dashboard";
+import ActiveUsers from "./users/ActiveUsers";
+import ChatApp from "./chat/ChatApp";
+import Dahsboard from "./dashboard/Dashboard";
 import "./style/chat.css";
 function Chat() {
     return <div className="chat">

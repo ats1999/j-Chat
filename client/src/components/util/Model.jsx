@@ -17,26 +17,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
-export default function Test(){
-    
-  const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return  <button type="button" onClick={handleOpen}>
-    react-transition-group
-    <TransitionsModal open={open} handleClose={handleClose}/>
-  </button>
-}
- function TransitionsModal({open,handleClose}) {
+export default function Model({open, handleClose,name}) {
   const classes = useStyles();
-
+    console.log("Model-->>",open,name)
   return (
     <div>
       <Modal
@@ -53,7 +37,6 @@ export default function Test(){
       >
         <Fade in={open}>
           <div className={classes.paper}>
-              <input type="text" />
             <h2 id="transition-modal-title">Transition modal</h2>
             <p id="transition-modal-description">react-transition-group animates me.</p>
           </div>
