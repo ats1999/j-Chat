@@ -10,7 +10,7 @@ app.get("/",(req,res)=>{
 })
 
 io.on("connection",(socket)=>{
-   chatAPI.connect(socket);
+   chatAPI.connect(socket,io);
 })
 
 http.listen(PORT,()=>console.log(`I  am running on ${PORT} PORT!`))

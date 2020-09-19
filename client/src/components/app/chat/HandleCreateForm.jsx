@@ -23,6 +23,7 @@ const BootstrapInput = withStyles((theme) => ({
     border: '1px solid #ced4da',
     fontSize: 16,
     width: '100%',
+    marginTop:10,
     padding: '10px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     // Use the system font instead of the default Roboto font.
@@ -57,13 +58,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CustomizedInputs() {
+export default function HandleCreateForm({handleDisplayName,handleMeetingId,handleDescription}) {
   const classes = useStyles();
 
   return (
     <form className={classes.root} noValidate>
       <FormControl className={classes.margin}>
-        <BootstrapInput placeholder="Enter display name" onChange={(e)=>console.log(e.target.value)} id="bootstrap-input" />
+        <BootstrapInput 
+        placeholder="Display  Name" 
+        onChange={(e)=>handleDisplayName(e.target.value)} 
+        id="bootstrap-input" />
+
+        <BootstrapInput 
+        placeholder="Meeting Id" 
+        onChange={(e)=>handleMeetingId(e.target.value)} 
+        id="bootstrap-input" />
+
+        <TextField
+          id="standard-multiline-static"
+          label="Description"
+          multiline
+          onChange={(e)=>handleDescription(e.target.value)}
+          rows={4}
+        />
       </FormControl>
     </form>
   );

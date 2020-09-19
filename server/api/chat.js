@@ -2,29 +2,20 @@
  * This functon will notify all other users, that a user has joined the  chat.
  * @param {newly connected socket} socket 
  */
-function connect(socket){
+var i = 0;
+function connect(socket,io){
     console.log("A user has been connected!")
+    // send this msg to the recipents
+    socket.send("Hi, welcome to this chat group.");
 
     socket.on("disconnect",()=>{
        console.log("A user disconnected!");
     })
-
-    socket.on("join",()=>{
-        console.log("JOIned!!!")
-    })
-   // register event
-   socket.on("msg",(msg)=>{
-        console.log(`Got the message ${msg}`);
-
-        // emit this message to everyone eles in the grouup
-        socket.broadcast.emit("msg",msg);
-    })
-    socket.on("msg",test);
+    
+    const msg=`You are  in room ${i}`
+    io.sockets.in("room "+i).emit("room",msg )
 }
 
-function test(data){
-    console.log(`Test ${data}`)
-}
 const chatAPI = {
     connect:connect
 }

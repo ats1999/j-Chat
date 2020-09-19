@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node ./index"
+    "start": "node ./index"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,13 @@
   },
   "homepage": "https://github.com/Ats1999/j-Chat#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
+    "helmet": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
     "socket.io": "^2.3.0"
   }
 }
