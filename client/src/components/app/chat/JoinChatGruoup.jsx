@@ -3,7 +3,6 @@ import React,{useState} from 'react'
 function JoinChatGruoup(props) {
     const [name,setName] = useState("");
     const [id,setId] = useState("");
-    console.log(props)
     return (
         <div>
             <h1>JoinChatGruoup</h1>

@@ -3,21 +3,34 @@ import "./style/chat-app.css";
 import io from "./io.js";
 
 function ChatApp({name,id}) {
-    const [texts,setTexts] = useState(null);
-    const [userText,setUserText] = useState(null);
-    if(texts){
-        texts = texts.map((text,index)=>{
-           return  <li key={index}>{text}</li>
-        })
-    }
+    let [texts,setTexts] = useState(["Welcome!"]);
+    let [userText,setUserText] = useState(null); 
+    
     function handleSubmit(){
         console.log("Handle submit")
-        io.emit("msg",userText);
+        const msg = {
+            senderId:id,
+            senderName:name,
+            msg:userText
+        }
+        io.emit("msg",msg);
+        let newVal = texts;
+        newVal=newVal.push(userText)
+        setTexts(texts.push(newVal))
     }
+
+    io.on("msg",(msg)=>{
+        console.log(`${msg.senderName} sent ${msg.msg}`);
+        let newVal = texts;
+        newVal=newVal.push(msg)
+        setTexts(texts.push(newVal))
+    })
     return (
         <div className="chat__app">
             <div className="app">
-                <ul>{texts}</ul>
+                <ul>{texts.map(text=>{
+                    return <li>{text}</li>
+                })}</ul>
             </div>
             <div className="chat_room"> 
                 <input onChange={(e)=>setUserText(e.target.value)} type="text" id="chat-area"/>
