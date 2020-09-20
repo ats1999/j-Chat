@@ -5,7 +5,7 @@ import chatClient from "./chat-event";
 
 function ChatApp({name,id}) {
     let [messages,setMessages] = useState(["Welcome!"]);
-    let [message,setMessage] = useState(null); 
+    let [message,setMessage] = useState(""); 
     let displayName = name;
     let meetingId = id;
     useEffect(()=>{
@@ -23,6 +23,7 @@ function ChatApp({name,id}) {
     socket.on(chatClient.gotPrivateMessage,(msg,id)=>{
         console.log(msg,id)
     })
+
     function handleSubmit(){
         socket.emit(chatClient.sendMessage,message,meetingId)
         setMessage("");

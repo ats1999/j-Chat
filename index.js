@@ -12,5 +12,5 @@ app.get("/",(req,res)=>{
 io.on("connection",(socket)=>{
    chatAPI.connect(socket,io);
 })
-
+io.emit("test","Rahulkumarthaur")
 http.listen(PORT,()=>console.log(`I  am running on ${PORT} PORT!`))

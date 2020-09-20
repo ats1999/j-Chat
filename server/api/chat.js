@@ -18,11 +18,11 @@ function connect(socket,io){
     socket.on(chatServer.aClientSentPrivateMessage,(id,msg)=>{
         socket.to(id).emit(chatServer.sendPrivateMessage,msg,socket.id)
     })
-    socket.on(chatServer.clientWantsToDisconnect,()=>{
-        
+    socket.on(chatServer.clientWantsToDisconnect,()=>{        
+        let rooms = Object.keys(socket.rooms); console.log(rooms)
     })
-    socket.on("disconnect",()=>{
-        console.log("A user leaves!");
+    socket.on(chatServer.aClientDisconnected,()=>{
+        chatUsersAPI.removeUser(socket)
     })
 }
 
