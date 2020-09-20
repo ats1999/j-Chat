@@ -1,3 +1,4 @@
+const chatServer = require("./chat-events");
 let chatRooms = [
     {
         meetingId:Number,
@@ -25,15 +26,23 @@ function getRoom(meetingIdOfRoom){
  * This function will add a new user to the users array.
  * @param {name of the new user} userName 
  * @param {socket id of the new user} userId 
+ * @param {socket} socket of the user
  * @param {meetingId of the user} meetingId 
  * @return {room} new room which contains newwly added user. 
  */
-function addnNewUser(userName, userId,meetingId){
-    const room = getRoom(meetingId);
-    
-    // add new user
-    room.users.push({userId,userName});
-    return room;
+function addNewUser(socket,io,user){
+    // join user in room
+    socket.join(user.meetingId,()=>{
+        let rooms = Object.keys(socket.rooms);
+    console.log(rooms);
+    });
+    // get all clients in room named "user.meetingId"
+    io.in(user.meetingId).clients((err,clients)=>{
+        if(err)
+            throw err;
+        socket.to(user.meetingId).emit(chatServer.newClientConnected,
+            {clients:clients,newUser:user.displayName})
+    })
 }
 
 /**
@@ -42,16 +51,17 @@ function addnNewUser(userName, userId,meetingId){
  * @param {meeting id of the user to remove} meetingId 
  */
 function removeUser(userIdToRemove,meetingId){
-    let users = getRoom(meetingId).users;
-    var i = 0;
-    for(; i<userId.length; i++){
-        if(users[i].userId == userIdToRemove)
-            break;
-    }
+    // let users = getRoom(meetingId).users;
+    // var i = 0;
+    // for(; i<userId.length; i++){
+    //     if(users[i].userId == userIdToRemove)
+    //         break;
+    // }
 
-    delete users[i];
+    // delete users[i];
     
-    return getRoom(meetingId);
+    // users = getRoom(meetingId).users;
+    // socket.to(meetingId).emit(chatServer.clientWantsToDisconnect,users);
 }
 
 /**
@@ -59,5 +69,21 @@ function removeUser(userIdToRemove,meetingId){
  * @param {meeting id } meetingId 
  */
 function getUsers(meetingId){
-    return getRoom(meetingId).users;
+    // return getRoom(meetingId).users;
+}
+
+/**
+ * Recieve incommeing message.
+ * @param {*} socket 
+ * @param {*} msg 
+ * @param {*} userName 
+ */
+function cllientSentMessage(socket,msg,userName){
+    // console.log(socket.room)
+}
+module.exports = {
+    getRoom,
+    getUsers,
+    addNewUser,
+    removeUser
 }

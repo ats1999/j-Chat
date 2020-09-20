@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import "./style/chat-app.css";
 import socket from "./io.js";
+import chatClient from "./chat-event";
 
 function ChatApp({name,id}) {
     let [messages,setMessages] = useState(["Welcome!"]);
@@ -8,12 +9,23 @@ function ChatApp({name,id}) {
     let displayName = name;
     let meetingId = id;
     useEffect(()=>{
-        socket.emit("join",{displayName,meetingId});
+        socket.emit(chatClient.iWantToJoin,{displayName,meetingId});
     },[])
 
-    socket.on("new user joins",msg=>console.log(msg))
+    socket.on(chatClient.newClientConnected,(clients)=>{
+        console.log(clients)
+    })
+
+    socket.on(chatClient.aClientSentMessage,(msg,id)=>{
+        console.log(msg,id)
+    })
+
+    socket.on(chatClient.gotPrivateMessage,(msg,id)=>{
+        console.log(msg,id)
+    })
     function handleSubmit(){
-        
+        socket.emit(chatClient.sendMessage,message,meetingId)
+        setMessage("");
     }
 
     return (
@@ -24,7 +36,7 @@ function ChatApp({name,id}) {
                 })}</ul>
             </div> */}
             <div className="chat_room"> 
-                <input onChange={(e)=>setMessage(e.target.value)} type="text" id="chat-area"/>
+                <input value={message} onChange={(e)=>setMessage(e.target.value)} type="text" id="chat-area"/>
                 <button onClick={()=>handleSubmit()}>Send</button>
             </div>
         </div>

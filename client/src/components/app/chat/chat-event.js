@@ -1,6 +1,13 @@
 const chatClient = {
+    // to the server
     iWantToJoin:"join",
-    sentMessage:"msg",
-    iWantToLeave:"disconnect me"
+    sendMessage:"msg",
+    iWantToLeave:"disconnect",
+    sendPrivateMessage:"private message",
+
+    // from server
+    aClientSentMessage:"msg",
+    newClientConnected:"new user arrives",
+    gotPrivateMessage:"private message"
 }
 module.exports = chatClient;
