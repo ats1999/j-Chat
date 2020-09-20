@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function JoinChatGroup(props) {
-  console.log(props,"----------------)))))))")
   // a simple check that will tell, what user wants to do.
   // when he/she clicks on the button.
   const action = {
@@ -115,12 +114,11 @@ export default function JoinChatGroup(props) {
     }
   ];
 
-  function handleSubmit(action){
-    if(action === action.joinChatGroup){
-      console.log(props)
-      props.history.push(`/chat?displayname=${displayName}&id=${meetingId}`)
+  function handleSubmit(curAction){
+    if(curAction === action.joinChatGroup){
+      props.history.push(`/chat?name=${displayName}&id=${meetingId}`)
     }else{
-      console.log(displayName,meetingId,description)
+      // create a chat group
     }
   }
   return (

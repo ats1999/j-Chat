@@ -4,9 +4,9 @@ const http = require("http").createServer(app);
 const io = require('socket.io')(http);
 const chatAPI = require("./server/api/chat");
 const PORT = process.env.PORT || 4000;
-
+var i =0;
 app.get("/",(req,res)=>{
-   res.send("Hello, Let's start chatting...")
+   res.send(`Hello, Let's start chatting... ${++i}`)
 })
 
 io.on("connection",(socket)=>{

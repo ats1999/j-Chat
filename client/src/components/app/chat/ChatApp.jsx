@@ -1,31 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import "./style/chat-app.css";
-import io from "./io.js";
+import socket from "./io.js";
 
 function ChatApp({name,id}) {
-    let [texts,setTexts] = useState(["Welcome!"]);
-    let [userText,setUserText] = useState(null); 
+    let [messages,setMessages] = useState(["Welcome!"]);
+    let [message,setMessage] = useState(null); 
+    let displayName = name;
+    let meetingId = id;
+    useEffect(()=>{
+        socket.emit("join",{displayName,meetingId});
+    },[])
 
+    socket.on("new user joins",msg=>console.log(msg))
     function handleSubmit(){
-        console.log("Handle submit")
-        const msg = {
-            senderId:id,
-            senderName:name,
-            msg:userText
-        }
-        io.emit("msg",msg);
-        let newVal = texts;
-        newVal=newVal.push(userText)
-        setTexts(texts.push(newVal))
+        
     }
 
-    io.on("message",(msg)=>{
-        console.log("message--------",msg)
-    })
-    io.on("room",(msg)=>{
-        console.log(`Message ====== ${msg}`);
-        
-    })
     return (
         <div className="chat__app">
             {/* <div className="app">
@@ -34,7 +24,7 @@ function ChatApp({name,id}) {
                 })}</ul>
             </div> */}
             <div className="chat_room"> 
-                <input onChange={(e)=>setUserText(e.target.value)} type="text" id="chat-area"/>
+                <input onChange={(e)=>setMessage(e.target.value)} type="text" id="chat-area"/>
                 <button onClick={()=>handleSubmit()}>Send</button>
             </div>
         </div>
