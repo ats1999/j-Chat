@@ -1,39 +1,43 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import "./style/chat-app.css";
-import io from "./io.js";
+import socket from "./io.js";
+import chatClient from "./chat-event";
 
 function ChatApp({name,id}) {
-    let [texts,setTexts] = useState(["Welcome!"]);
-    let [userText,setUserText] = useState(null); 
-    
+    let [messages,setMessages] = useState(["Welcome!"]);
+    let [message,setMessage] = useState(""); 
+    let displayName = name;
+    let meetingId = id;
+    useEffect(()=>{
+        socket.emit(chatClient.iWantToJoin,{displayName,meetingId});
+    },[])
+
+    socket.on(chatClient.newClientConnected,(clients)=>{
+        console.log(clients)
+    })
+
+    socket.on(chatClient.aClientSentMessage,(msg,id)=>{
+        console.log(msg,id)
+    })
+
+    socket.on(chatClient.gotPrivateMessage,(msg,id)=>{
+        console.log(msg,id)
+    })
+
     function handleSubmit(){
-        console.log("Handle submit")
-        const msg = {
-            senderId:id,
-            senderName:name,
-            msg:userText
-        }
-        io.emit("msg",msg);
-        let newVal = texts;
-        newVal=newVal.push(userText)
-        setTexts(texts.push(newVal))
+        socket.emit(chatClient.sendMessage,message,meetingId)
+        setMessage("");
     }
 
-    io.on("msg",(msg)=>{
-        console.log(`${msg.senderName} sent ${msg.msg}`);
-        let newVal = texts;
-        newVal=newVal.push(msg)
-        setTexts(texts.push(newVal))
-    })
     return (
         <div className="chat__app">
-            <div className="app">
+            {/* <div className="app">
                 <ul>{texts.map(text=>{
                     return <li>{text}</li>
                 })}</ul>
-            </div>
+            </div> */}
             <div className="chat_room"> 
-                <input onChange={(e)=>setUserText(e.target.value)} type="text" id="chat-area"/>
+                <input value={message} onChange={(e)=>setMessage(e.target.value)} type="text" id="chat-area"/>
                 <button onClick={()=>handleSubmit()}>Send</button>
             </div>
         </div>
