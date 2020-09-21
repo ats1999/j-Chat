@@ -3,27 +3,22 @@ import "./style/active-user.css";
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import BlockIcon from '@material-ui/icons/Block';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FlagIcon from '@material-ui/icons/Flag';
 import Users from "./Users";
+import ScrollToBottom from 'react-scroll-to-bottom';
+import { css } from 'emotion';
 
-function ActiveUsers() {
-    let src = "https://live.staticflickr.com/2545/4052988513_d1f9106edd.jpg";  
-    let userName = "Rahul!";
-    let users = [{imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"},
-    {imageSrc:src,userName:userName,userStatus:"There  is no status"}]
+const ROOT_CSS = css({
+    height: "100vh",
+    width: "25vw"
+  });
+
+function ActiveUsers({onlineUsers}) {
     return (
         <div className="active__users">
             <h1>Active users</h1>
-            <Users users={users}/>
+            <ScrollToBottom className={ROOT_CSS}>
+              <Users onlineUsers={onlineUsers}/> 
+            </ScrollToBottom>
         </div>
     )
 }

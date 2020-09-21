@@ -19,22 +19,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function User({users}) {
+export default function User({onlineUsers}) {
+  console.log("ONlinedsfsdf",onlineUsers)
   const classes = useStyles();
-  let userList = users.map((user,index)=>{
-    return <>
-      <ListItem button component={Link} to="/login" key={index} alignItems="flex-start">
-          <ListItemAvatar>
-          <Avatar alt={user.userName} src={user.imageSrc} />
-        </ListItemAvatar>
+  let userList = [];
+  for(let user of onlineUsers){
+      let curUser = <>
+          <ListItem button component={Link} to={`#${user[0]}`} key={user[0]} alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar alt={user[1].userName}>{user[1].userName.charAt(0).toUpperCase()}</Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={user[1].userName}></ListItemText>
+        </ListItem>
+          <Divider variant="inset" component="li" />
+      </>
+      userList.push(curUser);
+  }
 
-        <ListItemText
-          primary={user.userName}
-        />
-    </ListItem>
-        <Divider variant="inset" component="li" />
-    </>
-  })
   return (
     <List className={classes.root}>
       <Search/>

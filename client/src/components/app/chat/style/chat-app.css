@@ -2,20 +2,22 @@
     height: 100vh;
     width: 50vw;
     padding: 5px;
-    background-color: rgb(255, 246, 218);
 }
-#chat-area{
-    width: 100%;
-    height: 50px;
+.chat__room {
+    display: flex;
+    position: absolute;
+    bottom: 5px;
+}
+.chat__room > textarea{
+    width: 80%;
     font-size: 20px;
-    background-color: transparent;
+    height: 50px;
 }
-#chat-area:hover{
-    border: 1px solid red;
-}
-.chat_room>button{
-    background-color: greenyellow;
-    width: 100px;
+#send__message__button{
+    background-color: rgb(14, 1, 255);
+    font-size: 20px;
+    width: 20%;
+    height: 50px;
 }
 .chat_room{
     width: 48vw;

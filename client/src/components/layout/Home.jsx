@@ -179,9 +179,7 @@ function Home(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <h1>Home</h1>
         <Header/>
-        <Main/>
         <Footer/>
       </main>
     </div>

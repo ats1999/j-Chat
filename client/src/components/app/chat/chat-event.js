@@ -9,6 +9,6 @@ const chatClient = {
     aClientSentMessage:"msg",
     newClientConnected:"new user arrives",
     gotPrivateMessage:"private message",
-    aClientDisconnected:"a client disconnected"
+    aClientDisconnected:"a client disconnected",
 }
 module.exports = chatClient;
