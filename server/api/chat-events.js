@@ -7,7 +7,8 @@ const chatServer= {
     aClientDisconnected:"disconnect",
     // to the client 
     newClientConnected:"new user arrives",
-    sendPrivateMessage:"private message"
+    sendPrivateMessage:"private message",
+    aClientDisconnectedSendThisInfo:"this client disconnected"
 }
 
 module.exports = chatServer

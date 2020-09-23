@@ -5,12 +5,14 @@ var requireLogin=(req,res,next)=>{
     const token = authHeader && authHeader.split('Token ')[1];
 
     if(!token){
-        return res.status(401).json({msg:"Login first!"});
+        // invailid token
+        return res.status(401).send();
     }
 
     jwt.verify(token,process.env.JWT_KEY,(err,user)=>{
+        // expired/invailid token
         if(err)
-            return res.status(401).json({msg:"Login first."})
+            return res.status(422).send()
         
         req.user = user;
         next();

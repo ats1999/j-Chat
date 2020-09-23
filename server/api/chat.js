@@ -19,7 +19,7 @@ function connect(socket,io){
         socket.to(id).emit(chatServer.sendPrivateMessage,msg,socket.id)
     })
     socket.on(chatServer.clientWantsToDisconnect,()=>{        
-        let rooms = Object.keys(socket.rooms); console.log(rooms)
+        // do something
     })
     socket.on(chatServer.aClientDisconnected,()=>{
         chatUsersAPI.removeUser(socket)

@@ -18,19 +18,6 @@ import BottomNav from "./BottomNav";
 // validate
 import Validate from '../util/validate';
 import HelperText from "../util/helper-text";
-import validate from '../util/validate';
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,31 +32,25 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-export default function Fotgot() {
+export default function VerifyEmail() {
   const classes = useStyles();
   const [clicked,setClicked] = useState(false);
-  const [isEmail, setIsEmail] = useState(true);
 
   function handleSubmit(e){
     e.preventDefault()
     setClicked(true);
   }
+
   if(clicked)
     return <Email/>
-  
-    function handleEmailChange (e){
-        if(!validate.email(e.target.value))
-          setIsEmail(false)
-        else setIsEmail(true)
-    }
-
+    
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -78,23 +59,35 @@ export default function Fotgot() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Forgot Password
+          Verify Your Email.
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            error={!isEmail}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={(e)=>handleEmailChange(e)}
-            helperText={isEmail?"":HelperText.email}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                helperText={HelperText.email}
+              />
+            </Grid>
+          </Grid>
           <Button
             type="submit"
             fullWidth
@@ -103,7 +96,7 @@ export default function Fotgot() {
             className={classes.submit}
             onClick={(e)=>handleSubmit(e)}
           >
-            Get verification URL
+            Verify
           </Button>
         </form>
       <BottomNav/>

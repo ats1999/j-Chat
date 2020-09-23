@@ -3,34 +3,37 @@ let onlineUsers = new Map();
 
 function addNewUser(socket,io,user){
     // join user in room
-    socket.join(user.meetingId,()=>{
-        const userInfo = {
-            userName:user.displayName,
-            roomName:user.meetingId
-        }
-        onlineUsers.set(socket.id,userInfo);
-        socket.to(user.meetingId).emit(chatServer.newClientConnected,
-            {clients:onlineUsers,newUser:user.displayName}) 
-    });
+    try{
+        socket.join(user.meetingId,()=>{
+            const userInfo = {
+                userName:user.displayName,
+                roomName:user.meetingId
+            }
+            onlineUsers.set(socket.id,userInfo);
+            console.log(onlineUsers);
+            const curOnlineUsers = JSON.stringify(Array.from(onlineUsers))
+            io.to(user.meetingId).emit(chatServer.newClientConnected,curOnlineUsers ) 
+        });
+    }catch(e){
+        console.log("While addUser()->",e)
+    }
 }
 
-function removeUser(socket,io){
+function removeUser(socket){
+  try{
     const userInfo = onlineUsers.get(socket.id);
-    socket.to(userInfo.roomName).emit(chatServer.aClientDisconnected,userInfo.userName);
+
     onlineUsers.delete(socket.id);
+    // socket.to(userInfo.roomName).emit(chatServer.aClientDisconnectedSendThisInfo,userInfo.userName);
+  }catch(e){
+      console.log("While removeUser()->",e)
+  }
 }
-
-
-function getUsers(meetingId){
-    // return getRoom(meetingId).users;
-}
-
 
 function cllientSentMessage(socket,msg,userName){
     // console.log(socket.room)
 }
 module.exports = {
-    getUsers,
     addNewUser,
     removeUser
 }
