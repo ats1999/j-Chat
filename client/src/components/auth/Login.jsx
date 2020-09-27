@@ -19,6 +19,7 @@ import BottomNav from "./BottomNav";
 import Validate from '../util/validate';
 import HelperText from "../util/helper-text";
 import helperText from '../util/helper-text';
+import SnackBar from "../util/SnackBar";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,11 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
   const [clicked,setClicked] = useState(false);
   const [isEmail,setIsEmail] = useState(true);
   const [isPassword,setIsPassword] = useState(true);
+  const [snackBar,setSnackBar] = useState(null);
 
   function handleEmailChange (e){
     if(!Validate.email(e.target.value))
@@ -66,6 +68,7 @@ export default function SignIn() {
 
   return (
     <Container component="main" maxWidth="xs">
+      {snackBar}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -119,18 +122,18 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Button component={Link} to="/forgot" variant="body2">
+              <Link  to={"/forgot"} variant="body2">
                 Forgot password?
-              </Button>
+              </Link>
             </Grid>
             <Grid item>
-              <Button component={Link} to="/signup" variant="body2">
+              <Link to="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
-              </Button>
+              </Link>
             </Grid>
           </Grid>
         </form>
-        <BottomNav/>
+        <BottomNav history={props.history}/>
       </div>
     </Container>
   );

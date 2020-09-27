@@ -49,7 +49,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.secondary.paper,
     width: 500,
     position: 'relative',
     minHeight: 200,
@@ -123,7 +123,7 @@ export default function JoinChatGroup(props) {
   }
   return (
     <div className={classes.root}>
-        <h1>Welcome to Rocket-chat!</h1>
+        <h1 style={{marginBottom:"20px"}}>Welcome to Rocket-chat!</h1>
       <AppBar position="static" color="default">
         <Tabs
           value={value}

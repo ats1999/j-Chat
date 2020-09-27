@@ -1,13 +1,28 @@
 const express = require("express");
+var morgan = require('morgan')
+const cookieParser=require('cookie-parser')
 const app = express();
 const http = require("http").createServer(app);
 const io = require('socket.io')(http);
 const chatAPI = require("./server/api/chat");
 const PORT = process.env.PORT || 4000;
-var i =0;
-app.get("/",(req,res)=>{
-   res.send(`Hello, Let's start chatting... ${++i}`)
-})
+// env variables
+require('dotenv').config()
+// connect  to the database.
+require("./server/config/db");
+
+// on the production site, use production build
+if(process.env.NODE_ENV == "production"){
+	app.use(express.static(path.join(__dirname, 'client/build')))
+	app.get("/*",(req,res)=>{
+		res.sendFile(path.join(__dirname,"client","build","index.html"))
+	})
+}else app.use(morgan('dev'));
+
+app.use(cookieParser());
+app.use(express.json({limit:'25mb'}));
+app.use(express.urlencoded({limit:'25mb'}));
+
 
 io.on("connection",(socket)=>{
    chatAPI.connect(socket,io);
@@ -15,4 +30,5 @@ io.on("connection",(socket)=>{
 
 // authentication
 app.use(require("./server/routes/auth/signup"));
+
 http.listen(PORT,()=>console.log(`I  am running on ${PORT} PORT!`))

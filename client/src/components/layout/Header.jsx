@@ -79,7 +79,7 @@ function Header() {
       <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
         <Zoom in timeout={3000}>
             <Feature image={DeveloperImage}
-                featureName="Built by Developers, for Developers"
+                featureName="Built by Developers to develop."
                 content="Developers are high on Fusebill’s priority list because they make our 
                 subscription billing platform perform for our customers."
             />

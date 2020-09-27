@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BottomNav() {
+export default function BottomNav(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -28,10 +28,10 @@ export default function BottomNav() {
       className={classes.root}
     >
       <Divider /><Divider />
-      <BottomNavigationAction component={Link} href="/" label="Home" icon={<HomeIcon />} />
-      <BottomNavigationAction label="SignUp" icon={<EnhancedEncryptionIcon />} />
-      <BottomNavigationAction label="Login" icon={<LockIcon />} />
-      <BottomNavigationAction label="Chatting" icon={<ExploreIcon />} />
+      <BottomNavigationAction onClick={(e)=> props.history.push("/")} label="Home" icon={<HomeIcon />} />
+      <BottomNavigationAction onClick={(e)=> props.history.push("/signup")} label="SignUp" icon={<EnhancedEncryptionIcon />} />
+      <BottomNavigationAction onClick={(e)=> props.history.push("/login")} label="Login" icon={<LockIcon />} />
+      <BottomNavigationAction onClick={(e)=> props.history.push("/chat")} label="Chatting" icon={<ExploreIcon />} />
     </BottomNavigation>
   );
 }

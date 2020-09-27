@@ -19,6 +19,8 @@ import BottomNav from "./BottomNav";
 import Validate from '../util/validate';
 import HelperText from "../util/helper-text";
 import validate from '../util/validate';
+import SnackBar from "../util/SnackBar";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -52,10 +54,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Fotgot() {
+export default function Fotgot(props) {
   const classes = useStyles();
   const [clicked,setClicked] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
+  const [snackBar,setSnackBar] = useState(null);
 
   function handleSubmit(e){
     e.preventDefault()
@@ -72,6 +75,7 @@ export default function Fotgot() {
 
   return (
     <Container component="main" maxWidth="xs">
+      {snackBar}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -106,7 +110,7 @@ export default function Fotgot() {
             Get verification URL
           </Button>
         </form>
-      <BottomNav/>
+      <BottomNav history={props.history}/>
       </div>
     </Container>
   );

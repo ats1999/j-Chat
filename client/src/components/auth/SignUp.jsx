@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -19,6 +19,7 @@ import BottomNav from "./BottomNav";
 // validate
 import Validate from '../util/validate';
 import helperText from "../util/helper-text";
+import SnackBar from "../util/SnackBar";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
+  console.log(props)
   const classes = useStyles();
   const [clicked,setClicked] = useState(false);
   const [isEmail,setIsEmail] = useState(true);
@@ -54,6 +56,7 @@ export default function SignUp() {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [rememberMe,setRememberMe] = useState(false);
+  const [snackBar,setSnackBar] = useState(null);
 
   function handleNameChange (e,nameType){
     if(!Validate.text(e.target.value))
@@ -84,8 +87,14 @@ export default function SignUp() {
     e.preventDefault()
 
     // check valid input
-    if(!isName || !isEmail || !isPassword || !fname || !lname || !email || !password)
+    if(!isName || !isEmail || !isPassword || !fname || !lname || !email || !password){
+      setSnackBar(<SnackBar 
+        msg="Enter all the fields correctly." 
+        severity="info"
+        setSnackBar={setSnackBar}
+      ></SnackBar>)
       return;
+    }
 
     axios.post("/signup",{
       name:`${fname} ${lname}`,
@@ -93,8 +102,20 @@ export default function SignUp() {
       password:password
     }).then(res=>{
       console.log(res.status);
+      if(res.status == 200)
+          setSnackBar(<SnackBar 
+            msg="Email sent sussfully." 
+            severity="success"
+            setSnackBar={setSnackBar}
+          ></SnackBar>)
     }).catch(err=>{
       console.log(err);
+      if(err.response.status == 500)
+        setSnackBar(<SnackBar 
+          msg="Internal server error!" 
+          severity="error"
+          setSnackBar={setSnackBar}
+        ></SnackBar>)
     })
     
     //setClicked(true);
@@ -104,6 +125,7 @@ export default function SignUp() {
 
   return (
     <Container component="main" maxWidth="xs">
+      {snackBar}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -196,13 +218,13 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
         </form>
-      <BottomNav/>
+      <BottomNav history={props.history}/>
       </div>
     </Container>
   );

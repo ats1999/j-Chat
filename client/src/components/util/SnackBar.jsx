@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SnackBar({msg,severity}) {
+export default function SnackBar({msg,severity,setSnackBar}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -27,6 +27,7 @@ export default function SnackBar({msg,severity}) {
     }
 
     setOpen(false);
+    setSnackBar(null)
   };
 
   return (

@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Email from "./Email";
 import BottomNav from "./BottomNav";
-
+import SnackBar from "../util/SnackBar";
 // validate
 import Validate from '../util/validate';
 import HelperText from "../util/helper-text";
@@ -39,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VerifyEmail() {
+export default function VerifyEmail(props) {
   const classes = useStyles();
   const [clicked,setClicked] = useState(false);
+  const [snackBar,setSnackBar] = useState(null);
 
   function handleSubmit(e){
     e.preventDefault()
@@ -53,6 +54,7 @@ export default function VerifyEmail() {
     
   return (
     <Container component="main" maxWidth="xs">
+      {snackBar}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -99,7 +101,7 @@ export default function VerifyEmail() {
             Verify
           </Button>
         </form>
-      <BottomNav/>
+      <BottomNav history={props.history}/>
       </div>
     </Container>
   );

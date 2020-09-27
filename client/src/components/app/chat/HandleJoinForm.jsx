@@ -63,6 +63,7 @@ export default function HandleJoinForm({handleDisplayName,handleMeetingId}) {
 
   return (
     <form className={classes.root} noValidate>
+      <h1>This is th heading!</h1>
       <FormControl className={classes.margin}>
         <BootstrapInput 
         placeholder="Display  Name" 
