@@ -9,7 +9,6 @@ function Chat(props) {
 
     function handleOnlineUsers(curOnlineUsers){
         setOnlineUsers(curOnlineUsers);
-        console.log(onlineUsers)
     }
     return <div className="chat">
         <ActiveUsers onlineUsers={onlineUsers}/>

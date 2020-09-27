@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function User({onlineUsers}) {
-  console.log("ONlinedsfsdf",onlineUsers)
   const classes = useStyles();
   let userList = [];
   for(let user of onlineUsers){

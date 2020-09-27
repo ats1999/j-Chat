@@ -59,7 +59,7 @@ export default function Fotgot(props) {
   const [clicked,setClicked] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
   const [snackBar,setSnackBar] = useState(null);
-
+  const  [email,setEmail] = useState("");
   function handleSubmit(e){
     e.preventDefault()
     setClicked(true);
@@ -68,6 +68,7 @@ export default function Fotgot(props) {
     return <Email/>
   
     function handleEmailChange (e){
+      setEmail(e.target.value)
         if(!validate.email(e.target.value))
           setIsEmail(false)
         else setIsEmail(true)

@@ -1,13 +1,12 @@
 import React, {useState,useEffect} from 'react';
 import "./style/chat-app.css";
 import socket from "./io.js";
-import chatClient from "./chat-event";
 import { css } from 'emotion';
 import ScrollToBottom from 'react-scroll-to-bottom';
-
+import Messages from "./messages/Messages";
 
 const ROOT_CSS = css({
-    height: 600,
+    height: 400,
     width: 400
   });
 
@@ -29,28 +28,28 @@ function ChatApp({name,id,handleOnlineUsers}) {
     },[onlineUsers])
 
     useEffect(()=>{
-        socket.emit(chatClient.iWantToJoin,{displayName,meetingId});
+        socket.emit("join",{displayName,meetingId});
     },[])
     
-    socket.on(chatClient.newClientConnected,(onlineUsers)=>{
+    socket.on("new_user_arrives",(onlineUsers)=>{
         setOnlineUsers(new Map(JSON.parse(onlineUsers)))
-        console.log("Chat App",onlineUsers)
     })
 
-    socket.on(chatClient.aClientSentMessage,(msg,socketId)=>{
+    socket.on("msg",(msg,socketId,sender)=>{
         let curMessages = messages;
-        messages.push({msg:msg,socketId:socketId});
+        curMessages.push({msg:msg,socketId:socketId,sender:sender});
         setMessages(curMessages);
+        console.log("How may messages",messages.length)
     })
 
-    socket.on(chatClient.gotPrivateMessage,(msg,id)=>{
+    socket.on("private_message",(msg,id)=>{
         console.log(msg,id)
     })
 
     function handleSubmit(e){
         e.preventDefault();
 
-        socket.emit(chatClient.sendMessage,message,meetingId)
+        socket.emit("msg",message,meetingId,displayName)
         const curMessage = {
             msg:message,
             sender:displayName,
@@ -60,12 +59,12 @@ function ChatApp({name,id,handleOnlineUsers}) {
         curMessages.push(curMessage);
         setMessages(curMessages)
         setMessage("");
-        console.log(messages)
     }
 
     return (
         <div className="chat__app">
             <ScrollToBottom className={ROOT_CSS}>
+                {/* <Messages messages={messages} currentUserSocketId={socketId}/> */}
             </ScrollToBottom>
             <div className="chat__room">
                 <textarea onChange={(e)=>setMessage(e.target.value)} value={message} placeholder="Send message..."></textarea>

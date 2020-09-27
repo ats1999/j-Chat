@@ -6,8 +6,8 @@ const http = require("http").createServer(app);
 const io = require('socket.io')(http);
 const chatAPI = require("./server/api/chat");
 const PORT = process.env.PORT || 4000;
-// env variables
 require('dotenv').config()
+
 // connect  to the database.
 require("./server/config/db");
 
@@ -20,8 +20,8 @@ if(process.env.NODE_ENV == "production"){
 }else app.use(morgan('dev'));
 
 app.use(cookieParser());
-app.use(express.json({limit:'25mb'}));
-app.use(express.urlencoded({limit:'25mb'}));
+app.use(express.json({limit:'10md'}));
+app.use(express.urlencoded({limit:'10mb'}));
 
 
 io.on("connection",(socket)=>{

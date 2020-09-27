@@ -20,6 +20,7 @@ import Validate from '../util/validate';
 import HelperText from "../util/helper-text";
 import helperText from '../util/helper-text';
 import SnackBar from "../util/SnackBar";
+import axios  from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,20 +48,25 @@ export default function SignIn(props) {
   const [isEmail,setIsEmail] = useState(true);
   const [isPassword,setIsPassword] = useState(true);
   const [snackBar,setSnackBar] = useState(null);
-
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  
   function handleEmailChange (e){
+    setEmail(e.target.value)
     if(!Validate.email(e.target.value))
       setIsEmail(false)
     else setIsEmail(true)
   } 
 
   function handlePasswordChange (e){
+    setPassword(e.target.value)
     if(!Validate.password(e.target.value))
       setIsPassword(false)
     else setIsPassword(true)
   }
   function handleSubmit(e){
-    e.preventDefault()
+    e.preventDefault();
+    // make API request
     setClicked(true);
   }
   if(clicked)

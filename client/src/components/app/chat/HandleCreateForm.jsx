@@ -9,6 +9,7 @@ import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { green } from '@material-ui/core/colors';
+import SnackBar from "../../util/SnackBar";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -67,7 +68,9 @@ export default function HandleCreateForm({handleDisplayName,handleMeetingId,hand
         <BootstrapInput 
         placeholder="Display  Name" 
         onChange={(e)=>handleDisplayName(e.target.value)} 
-        id="bootstrap-input" />
+        id="bootstrap-input" 
+        onChange={(e)=>console.log(e.target.value)}
+        />
 
         <BootstrapInput 
         placeholder="Meeting Id" 

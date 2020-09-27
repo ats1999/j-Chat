@@ -1,4 +1,3 @@
-const chatServer = require("./chat-events");
 const chatUsersAPI = require("./chat-room-users");
 /**
  * This functon will notify all other users, that a user has joined the  chat.
@@ -6,22 +5,23 @@ const chatUsersAPI = require("./chat-room-users");
  */
 
 function connect(socket,io){
-    socket.on(chatServer.newClientWantsToJoin,(user)=>{
+    socket.on("join",(user)=>{
         chatUsersAPI.addNewUser(socket,io,user);
     })
 
-    socket.on(chatServer.aClientSentMessage,(msg,meetingId)=>{
-        socket.to(meetingId).emit(chatServer.aClientSentMessage,msg,socket.id)
+    socket.on("msg",(msg,meetingId,sender)=>{
+        console.log("msg",msg,sender)
+        socket.to(meetingId).emit("msg",msg,socket.id,sender)
     })
 
     // private messaging
-    socket.on(chatServer.aClientSentPrivateMessage,(id,msg)=>{
-        socket.to(id).emit(chatServer.sendPrivateMessage,msg,socket.id)
+    socket.on("private_message",(id,msg)=>{
+        socket.to(id).emit("private_message",msg,socket.id)
     })
-    socket.on(chatServer.clientWantsToDisconnect,()=>{        
+    socket.on("disconnect_me",()=>{        
         // do something
     })
-    socket.on(chatServer.aClientDisconnected,()=>{
+    socket.on("disconnect",()=>{
         chatUsersAPI.removeUser(socket)
     })
 }

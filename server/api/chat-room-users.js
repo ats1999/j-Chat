@@ -1,4 +1,3 @@
-const chatServer = require("./chat-events");
 let onlineUsers = new Map();
 
 function addNewUser(socket,io,user){
@@ -12,7 +11,7 @@ function addNewUser(socket,io,user){
             onlineUsers.set(socket.id,userInfo);
             console.log(onlineUsers);
             const curOnlineUsers = JSON.stringify(Array.from(onlineUsers))
-            io.to(user.meetingId).emit(chatServer.newClientConnected,curOnlineUsers ) 
+            io.to(user.meetingId).emit("new_user_arrives",curOnlineUsers ) 
         });
     }catch(e){
         console.log("While addUser()->",e)

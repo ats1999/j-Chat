@@ -119,6 +119,7 @@ export default function JoinChatGroup(props) {
       props.history.push(`/chat?name=${displayName}&id=${meetingId}`)
     }else{
       // create a chat group
+      console.log(curAction)
     }
   }
   return (
