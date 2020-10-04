@@ -9,7 +9,6 @@ function addNewUser(socket,io,user){
                 roomName:user.meetingId
             }
             onlineUsers.set(socket.id,userInfo);
-            console.log(onlineUsers);
             const curOnlineUsers = JSON.stringify(Array.from(onlineUsers))
             io.to(user.meetingId).emit("new_user_arrives",curOnlineUsers ) 
         });

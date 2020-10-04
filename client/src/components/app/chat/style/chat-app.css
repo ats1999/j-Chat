@@ -1,27 +1,13 @@
 .chat__app{
-    height: 100vh;
+    height: 95vh;
     width: 50vw;
-    padding: 5px;
 }
 .chat__room {
-    display: flex;
-    position: absolute;
-    bottom: 5px;
+    width: 50vw;
 }
-.chat__room > textarea{
-    width: 80%;
-    font-size: 20px;
-    height: 50px;
-}
-#send__message__button{
-    background-color: rgb(14, 1, 255);
-    font-size: 20px;
-    width: 20%;
-    height: 50px;
-}
-.chat_room{
+/* .chat_room{
     width: 48vw;
     position: fixed;
     bottom: 0%;
     display: flex;
-}
+} */

@@ -6,12 +6,13 @@ const chatUsersAPI = require("./chat-room-users");
 
 function connect(socket,io){
     socket.on("join",(user)=>{
+        console.log("join",user)
         chatUsersAPI.addNewUser(socket,io,user);
     })
 
     socket.on("msg",(msg,meetingId,sender)=>{
-        console.log("msg",msg,sender)
-        socket.to(meetingId).emit("msg",msg,socket.id,sender)
+        socket.to(meetingId).emit("msg",msg,socket.id,sender);
+        console.log(msg)
     })
 
     // private messaging

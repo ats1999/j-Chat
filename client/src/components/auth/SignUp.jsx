@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 
 import Email from "./Email";
 import BottomNav from "./BottomNav";
-
+import StatusCode from "../util/status-code";
 // validate
 import Validate from '../util/validate';
 import helperText from "../util/helper-text";
@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp(props) {
-  console.log(props)
   const classes = useStyles();
   const [clicked,setClicked] = useState(false);
   const [isEmail,setIsEmail] = useState(true);
@@ -97,22 +96,44 @@ export default function SignUp(props) {
     }
 
     axios.post("/signup",{
-      name:`${fname} ${lname}`,
+      fname:fname,
+      lname:lname,
       email:email,
       password:password
     }).then(res=>{
-      console.log(res.status);
-      if(res.status == 200)
+      if(res.status == StatusCode.success)
           setSnackBar(<SnackBar 
             msg="Email sent sussfully." 
             severity="success"
             setSnackBar={setSnackBar}
           ></SnackBar>)
+          try{
+            const token = res.data;
+            localStorage.token = token;
+          }catch(e){
+            console.log(e)
+          }
+        props.history.go(-1);
     }).catch(err=>{
       console.log(err);
-      if(err.response.status == 500)
+      if(err.response.status == StatusCode.internalServerError)
         setSnackBar(<SnackBar 
           msg="Internal server error!" 
+          severity="error"
+          setSnackBar={setSnackBar}
+        ></SnackBar>)
+
+      if(err.response.statu == StatusCode.unProcessableEntity){
+        setSnackBar(<SnackBar 
+          msg="Try with vailid input!" 
+          severity="error"
+          setSnackBar={setSnackBar}
+        ></SnackBar>)
+      }
+
+      if(err.response.status == StatusCode.userAlreadyExists)
+        setSnackBar(<SnackBar 
+          msg="User already exist!" 
           severity="error"
           setSnackBar={setSnackBar}
         ></SnackBar>)

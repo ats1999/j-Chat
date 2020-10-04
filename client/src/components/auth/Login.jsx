@@ -21,6 +21,7 @@ import HelperText from "../util/helper-text";
 import helperText from '../util/helper-text';
 import SnackBar from "../util/SnackBar";
 import axios  from "axios";
+import StatusCode from "../util/status-code";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,8 +67,58 @@ export default function SignIn(props) {
   }
   function handleSubmit(e){
     e.preventDefault();
-    // make API request
-    setClicked(true);
+    if(!isEmail || !isPassword ||!email ||!password){
+      setSnackBar(<SnackBar 
+        msg="Give input!." 
+        severity="warning"
+        setSnackBar={setSnackBar}
+      ></SnackBar>)
+      return;
+    }
+
+    axios.post("/login",{
+      email:email,password:password
+    })
+    .then(res=>{
+        if(res.status == StatusCode.success){
+            const token = res.data;
+            try{
+              localStorage.token = token;
+            }catch(e){
+              console.log("It's okey to not have localstorage.")
+            }
+            props.history.go(-1);
+        }
+    })
+    .catch(err=>{
+      if(err.response.status == StatusCode.internalServerError)
+      setSnackBar(<SnackBar 
+        msg="There are some error, try again!." 
+        severity="error"
+        setSnackBar={setSnackBar}
+      ></SnackBar>)
+
+      if(err.response.status == StatusCode.passwordDoNotMatched)
+      setSnackBar(<SnackBar 
+        msg="Password do not matched!." 
+        severity="error"
+        setSnackBar={setSnackBar}
+      ></SnackBar>)
+
+      if(err.response.status == StatusCode.unProcessableEntity)
+      setSnackBar(<SnackBar 
+        msg="Try with correct input." 
+        severity="error"
+        setSnackBar={setSnackBar}
+      ></SnackBar>)
+
+      if(err.response.status == StatusCode.userDoesNotExist)
+      setSnackBar(<SnackBar 
+        msg="User does not exist!." 
+        severity="error"
+        setSnackBar={setSnackBar}
+      ></SnackBar>)
+    })
   }
   if(clicked)
     return <Email/>
